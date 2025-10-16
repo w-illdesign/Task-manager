@@ -58,15 +58,10 @@ Task-manager est une application web de gestion de tâches développée avec Dja
 ## Utilisation de l’API
 
 - Endpoint API REST pour les tâches : `/api/` (GET pour lister, POST pour créer)
-- Authentification API : `/api-auth/`
-- Exemple de requête GET :
-  ```bash
-  curl http://127.0.0.1:8000/api/
-  ```
-- Exemple de requête POST :
-  ```bash
-  curl -X POST -H "Content-Type: application/json" -d '{"title": "Ma tâche", "description": "Détails", "deadline": "2025-10-20T12:00:00Z"}' http://127.0.0.1:8000/api/
-  ```
+- detail d'une tâche sur l'API : `/api/<id>`
+
+
+
 
 ## Points d’entrée du code
 
