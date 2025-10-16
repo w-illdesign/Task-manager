@@ -1,6 +1,7 @@
 # Task-manager
 
 ![alt text](Screenshot_20251016-175919_1.png)
+![alt text](image.png)
 
 Task-manager est une application web de gestion de tâches développée avec Django. Elle permet de créer, visualiser, terminer et supprimer des tâches, ainsi que de consulter une liste d’utilisateurs externes récupérée via une API.
 
