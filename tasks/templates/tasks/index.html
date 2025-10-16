@@ -16,31 +16,10 @@
       --muted:#9aa0a6;
     }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(180deg, #fff 0%, #f3f3f5 100%);
-      padding: 14px;
-      box-sizing: border-box;
-    }
-
-    .app {
-      max-width: 480px;
-      margin: 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
+    html, body {height: 100%;margin: 0;font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;}
+    body {background: linear-gradient(180deg, #fff 0%, #f3f3f5 100%);padding: 14px;box-sizing: border-box;}
+    .app {max-width: 480px;margin: 0 auto;width: 100%;box-sizing: border-box;}
+   header {display: flex;align-items: center;gap: 12px;margin-bottom: 12px;}
 
     .logo {
       width: 48px;
@@ -144,14 +123,15 @@
       cursor: pointer;
     }
 
-    .done { color: #16a34a; } /* green */
-    .delete { color: #ef4444; } /* orange */
-    .priority-high { color: #ff3b30; } /* high -> orange */
-    .priority-medium { color: #ff9f1c; } /* medium -> orange */
-    .priority-low { color: #6b7280; } /* low -> grey */
+    .done { color: #16a34a; } 
+    .delete { color: #ef4444; } 
+    .priority-high { color: #ff3b30; } 
+    .priority-medium { color: #ff9f1c; } 
+    .priority-low { color: #6b7280; } 
     .overdue { color: #b91c1c; font-weight: 700; }
+    .task_done { color: #b91c1c; font-weight: 700; }
 
-    /* Responsive - pour tous les téléphones <= 480px */
+   
     @media (max-width: 480px) {
       body {
         padding: 10px;
@@ -237,8 +217,10 @@
                 {% else %}
 
                 {% if task.completed %}
-                <i class="fa-solid fa-circle-check" class="done"></i>
-                           {% endif %}
+                
+                <span class="done">
+                  <i class="fa-solid fa-circle-check"></i> Déjà réalisé
+                </span> {% endif %}
                   <i class="fa-regular fa-clock"></i>
                   {{ task.deadline|date:"d M Y H:i" }}
                 {% endif %}
@@ -257,9 +239,11 @@
         </div>
 
         <div class="actions">
+          {% if not task.completed %}
           <a href="{% url 'toggle_task' task.id %}" class="icon-btn done" title="Terminer">
             <i class="fa-solid fa-check"></i>
           </a>
+          {% endif %}
           <a href="{% url 'delete_task' task.id %}" class="icon-btn delete" title="Supprimer">
             <i class="fa-solid fa-trash"></i>
           </a>

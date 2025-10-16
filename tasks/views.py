@@ -4,7 +4,6 @@ from .forms import TaskForm
 from django.utils import timezone
 
 def index(request):
-    # tri simple : d'abord non complétées (false) puis priorité (H,M,L) puis deadline asc
     tasks = Task.objects.all().order_by('completed', 'priority', 'deadline')
     form = TaskForm()
 
@@ -26,3 +25,11 @@ def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
     return redirect('index')
+
+# API Views
+from rest_framework import viewsets
+from .serializers import taskSerializer
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all().order_by('completed', 'priority', 'deadline')
+    serializer_class = taskSerializer
