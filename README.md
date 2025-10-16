@@ -33,7 +33,7 @@ Task-manager est une application web de gestion de tâches développée avec Dja
    ```
 3. Installez les dépendances :
    ```bash
-   pip install django djangorestframework requests
+   pip install django djangorestframework requests tzdata
    ```
 4. Appliquez les migrations :
    ```bash
