@@ -1,5 +1,7 @@
 # Task-manager
 
+![alt text](Screenshot_20251016-175919_1.png)
+
 Task-manager est une application web de gestion de tâches développée avec Django. Elle permet de créer, visualiser, terminer et supprimer des tâches, ainsi que de consulter une liste d’utilisateurs externes récupérée via une API.
 
 ## Fonctionnalités principales
@@ -24,12 +26,13 @@ Task-manager est une application web de gestion de tâches développée avec Dja
 
 1. Clonez le dépôt ou copiez les fichiers sur votre machine.
    ```bash
-   git@github.com:w-illdesign/Task-manager.git
+   git clone git@github.com:w-illdesign/Task-manager.git
+   cd Task-manager
    ```
 2. Créez et activez un environnement virtuel :
    ```bash
    python -m venv env # Pour créer l'environnement virtuel
-   source env/bin/activate  # Sur Windows : env\Scripts\activate
+   source env/Scripts/activate # source env/bin/activate  Sur macOs et Linux
    ```
 3. Installez les dépendances :
    ```bash
@@ -37,7 +40,6 @@ Task-manager est une application web de gestion de tâches développée avec Dja
    ```
 4. Appliquez les migrations :
    ```bash
-   python manage.py makemigrations
    python manage.py migrate
    ```
 5. Lancez le serveur de développement :
