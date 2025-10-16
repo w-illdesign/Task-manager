@@ -35,24 +35,72 @@ def users(request):
         'api_users': api_users,
     })
 
-# API Views (if needed in the future)
-from rest_framework.views import APIView
+
+from rest_framework import serializers, generics, status, viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from rest_framework import status
-from .serializers import TaskSerializer
+from .models import Task
 
-class TaskAPIView(APIView):
+# ------------------------------
+# SERIALIZER
+# ------------------------------
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+
+    def validate_deadline(self, value):
+        """Vérifie que la date limite est bien renseignée."""
+        if not value:
+            raise serializers.ValidationError("La date limite (deadline) est obligatoire.")
+        return value
+
+
+# ------------------------------
+# API BASÉE SUR LES VUES GÉNÉRIQUES
+# ------------------------------
+class TaskListCreateView(generics.ListCreateAPIView):
+    """Lister toutes les tâches ou en créer une nouvelle."""
+    queryset = Task.objects.all().order_by('-id')
+    serializer_class = TaskSerializer
     permission_classes = [AllowAny]
 
-    def get(self, *args, **kwargs):
-        categories = Task.objects.all()
-        serializer = TaskSerializer(categories, many=True)
-        return Response(serializer.data)
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    """Afficher, modifier ou supprimer une tâche spécifique."""
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [AllowAny]
+
+
+# ------------------------------
+# API BASÉE SUR APIView (plus personnalisable)
+# ------------------------------
+from rest_framework.views import APIView
+
+class TaskAPIView(APIView):
+    """Vue personnalisée pour gérer les tâches."""
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        """Liste toutes les tâches."""
+        tasks = Task.objects.all().order_by('-id')
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        """Crée une nouvelle tâche."""
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                "message": "Tâche créée avec succès ✅",
+                "data": serializer.data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "message": "Erreur lors de la création ❌",
+            "errors": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)

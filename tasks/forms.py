@@ -15,12 +15,17 @@ class TaskForm(forms.ModelForm):
                 'placeholder': 'Ajouter une description...',
                 'autocomplete': 'off',
             }),
-            
 
             'deadline': forms.DateTimeInput(attrs={
                 'type': 'datetime-local',
+                'required': 'required',
             }),
+
             'priority': forms.Select(attrs={
                 'aria-label': 'Priorité'
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['deadline'].required = True

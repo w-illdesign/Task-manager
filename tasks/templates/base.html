@@ -1,0 +1,130 @@
+{% load static %}
+<!-- Template général -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Task Manager{% endblock %}</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root{
+      --orange: #ff8800;
+      --bg: #f8f7f5;
+      --card: #ffffff;
+      --muted: #9aa0a6;
+      --muted-strong: #6b7280;
+      --black: #000000;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 6px 18px rgba(20,20,30,0.06);
+      --radius: 12px;
+    }
+
+    /* Reset & base */
+    *, *::before, *::after {box-sizing: border-box}
+    html, body {height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing:antialiased}
+    body {background: linear-gradient(180deg, #fff 0%, #f3f3f5 100%); padding: 14px; color: #111}
+
+    /* App container */
+    .app {max-width: 480px; margin: 0 auto; width: 100%;}
+
+    /* Header */
+    header {display:flex; align-items:center; gap:12px; margin-bottom:12px}
+    .logo {width:48px; height:48px; border-radius:10px; background:var(--orange); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; box-shadow:0 6px 18px rgba(255,78,80,0.18); flex-shrink:0}
+    h1 {font-size:18px; margin:0; color:var(--orange)}
+    .subtitle {font-size:12px; color:var(--muted)}
+
+    /* Navigation */
+    nav {margin-bottom:16px; display:flex; gap:12px}
+    nav a {text-decoration:none; padding:8px 12px; border-radius:10px; color:var(--black); font-weight:500}
+    nav a:hover {background:rgba(0,0,0,0.03)}
+    nav a.active {background: linear-gradient(90deg, rgba(255,136,0,0.12), rgba(255,136,0,0.06)); color:var(--orange)}
+
+    /* Form */
+    form {display:flex; gap:8px; margin-bottom:12px; align-items:center; flex-wrap:wrap}
+    input[type="text"], input[type="datetime-local"], textarea, select {flex:1 1 auto; min-width:0; padding:12px; border-radius:10px; border:1px solid #e6e6e9; background:#fff; font-size:15px; outline:none}
+    textarea {resize:vertical; min-height:72px}
+    .btn-add {background:var(--orange); border:none; color:#fff; padding:0 14px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; flex-shrink:0; height:44px}
+    .btn-add i {margin-right:8px}
+
+    /* Lists / cards */
+    .task {display:flex; align-items:center; justify-content:space-between; padding:12px; background:var(--card); border-radius:var(--radius); margin-bottom:10px; box-shadow:var(--shadow); word-break:break-word}
+    .task.small {padding:10px}
+
+    .left {display:flex; gap:12px; align-items:center; flex:1 1 auto; min-width:0}
+    .title {font-size:15px; margin:0}
+    .title h2 {font-size:16px; margin:0 0 6px 0}
+    .description {margin:0; color:var(--muted-strong); font-size:14px}
+
+    .meta {font-size:12px; color:var(--muted); margin-top:6px}
+    .meta i {margin-right:6px}
+
+    .actions {display:flex; gap:10px; align-items:center; flex-shrink:0}
+    .icon-btn {font-size:18px; padding:6px; border-radius:8px; text-decoration:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center}
+    .icon-btn:hover {background:rgba(0,0,0,0.03)}
+
+    /* Status & priorities */
+    .done { color: #16a34a; }
+    .delete { color: #ef4444; }
+    .priority-high { color: #ff3b30; }
+    .priority-medium { color: #ff9f1c; }
+    .priority-low { color: #6b7280; }
+    .overdue { color: #b91c1c; font-weight:700 }
+    .task_done { color: #6b7280; text-decoration:line-through }
+
+    /* Small helper blocks */
+    .badge {padding:6px 8px; border-radius:999px; font-weight:600; font-size:12px; display:inline-block}
+
+    /* Empty state */
+    .empty {text-align:center; color:var(--muted); padding:20px}
+
+    /* Responsive: seulement la version que tu avais */
+    @media (max-width: 480px) {
+      body {padding:10px}
+      .app {padding: 0 6px}
+      .logo {width:40px; height:40px}
+      h1 {font-size:16px}
+      form {flex-wrap:wrap; gap:6px}
+      input[type="text"], input[type="datetime-local"], textarea, select {padding:10px; font-size:14px}
+      .btn-add {padding:0 10px; font-size:15px; height:40px}
+      .task {flex-direction:column; align-items:flex-start; gap:8px; padding:10px}
+      .actions {width:100%; justify-content:flex-start; gap:16px}
+      .title h2 {font-size:15px}
+      .meta {font-size:11px}
+    }
+
+    /* Utility */
+    .flex {display:flex}
+    .gap-8 {gap:8px}
+  </style>
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div class="app">
+    <header>
+      {% block header %}
+      <div class="logo"><i class="fa-solid fa-list-check"></i></div>
+      <div>
+        <h1>Task Manager</h1>
+        <div class="subtitle">Gère tes tâches rapidement</div>
+      </div>
+      {% endblock %}
+    </header>
+
+    <nav>
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}">Tâches</a>
+      <a href="/users/" class="{% if request.path == '/users/' %}active{% endif %}">Utilisateurs externes</a>
+    </nav>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+  </div>
+</body>
+</html>
