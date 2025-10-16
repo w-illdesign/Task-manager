@@ -27,12 +27,20 @@ def delete_task(request, task_id):
     return redirect('index')
 
 import requests
+from requests.exceptions import RequestException
+
 def users(request):
-    response = requests.get('https://jsonplaceholder.typicode.com/users')
-    api_users = response.json() if response.status_code == 200 else []
+    try:
+        response = requests.get('https://jsonplaceholder.typicode.com/users', timeout=5)
+        api_users = response.json() if response.status_code == 200 else []
+        error = None
+    except RequestException:
+        api_users = []
+        error = "Impossible de récupérer les utilisateurs externes. Veuillez vérifier votre connexion internet."
 
     return render(request, 'tasks/users.html', {
         'api_users': api_users,
+        'error': error,
     })
 
 
