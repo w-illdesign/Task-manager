@@ -3,10 +3,10 @@
 Task-manager est une application web de gestion de tâches développée avec Django. Elle permet de créer, visualiser, terminer et supprimer des tâches, ainsi que de consulter une liste d’utilisateurs externes récupérée via une API.
 
 #### Affichage desktop
-![alt text](assets/affichage-desktop.png)
+![alt text](assets/affichage_desktop.png)
 
 #### Affichage mobil
-![alt text](assets/affichage-mobil.png)
+![alt text](assets/affichage_mobil.png)
 
 
 
@@ -56,8 +56,16 @@ Task-manager est une application web de gestion de tâches développée avec Dja
 - **API REST** : accessible via [http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/)   
 Détail d'une tâche sur l'API accessible via le id de la tâche: [http://127.0.0.1:8000/api/id](http://127.0.0.1:8000/api/1/) 
 
+#### Affichage mobil du site django-rest-framework pour l'api
+![alt text](assets/site_api_django-rest-framework.png)
+
+
 - **Admin Django** : accessible via [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)     
 Nom d'utilisateur : `admin` Mot de passe : `admin123`
+
+#### Affichage mobil du site d'administration django
+![alt text](assets/site_admin_django.png)
+
 
 
 
