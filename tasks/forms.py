@@ -20,11 +20,7 @@ class TaskForm(forms.ModelForm):
                 'type': 'datetime-local',
                 'required': 'required',
             }),
-
-            'priority': forms.Select(attrs={
-                'aria-label': 'Priorité'
-            }),
-        }
+       }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
