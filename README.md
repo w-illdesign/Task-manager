@@ -1,9 +1,15 @@
 # Task-manager
 
-![alt text](Screenshot_20251016-175919_1.png)
-![alt text](image.png)
-
 Task-manager est une application web de gestion de tâches développée avec Django. Elle permet de créer, visualiser, terminer et supprimer des tâches, ainsi que de consulter une liste d’utilisateurs externes récupérée via une API.
+
+#### Affichage desktop
+![alt text](assets/affichage-desktop.png)
+
+#### Affichage mobil
+![alt text](assets/affichage-mobil.png)
+
+
+
 
 ## Fonctionnalités principales
 
@@ -12,16 +18,8 @@ Task-manager est une application web de gestion de tâches développée avec Dja
 - Affichage des tâches en retard ou déjà réalisées
 - Liste des utilisateurs externes (affichée via une page dédiée)
 - API REST pour les tâches
-- Interface responsive et moderne
+- Interface responsive
 
-
-## Structure du projet
-
-- `todolist/` : configuration principale du projet Django
-- `tasks/` : application principale (modèles, vues, formulaires, API)
-- `templates/tasks/` : templates HTML (`index.html`, `users.html`)
-- `db.sqlite3` : base de données SQLite par défaut
-- `env/` : environnement virtuel Python (optionnel)
 
 ## Installation et utilisation
 
@@ -51,16 +49,25 @@ Task-manager est une application web de gestion de tâches développée avec Dja
 
 ## Utilisation de l’application
 
-- **Page d’accueil** : gestion des tâches (ajout, suppression, validation)
-- **Page utilisateurs** : liste des utilisateurs externes via `/users/`
-- **Admin Django** : accessible via `/admin/`
+- **Page d’accueil** : gestion des tâches (ajout, suppression, validation) [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-## Utilisation de l’API
+- **Page utilisateurs** : liste des utilisateurs externes via [http://127.0.0.1:8000/users/](http://127.0.0.1:8000/users/)
 
-- Endpoint API REST pour les tâches : `/api/` (GET pour lister, POST pour créer)
-- detail d'une tâche sur l'API : `/api/<id>`
+- **API REST** : accessible via [http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/)   
+Détail d'une tâche sur l'API accessible via le id de la tâche: [http://127.0.0.1:8000/api/id](http://127.0.0.1:8000/api/1/) 
+
+- **Admin Django** : accessible via [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)     
+Nom d'utilisateur : `admin` Mot de passe : `admin123`
 
 
+
+## Structure du projet
+
+- `todolist/` : configuration principale du projet Django
+- `tasks/` : application principale (modèles, vues, formulaires, API)
+- `templates/tasks/` : templates HTML (`index.html`, `users.html`)
+- `db.sqlite3` : base de données SQLite par défaut
+- `env/` : environnement virtuel Python (optionnel)
 
 
 ## Points d’entrée du code

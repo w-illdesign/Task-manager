@@ -12,7 +12,6 @@ def index(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-
     return render(request, 'tasks/index.html', {'tasks': tasks, 'form': form, 'now': timezone.now()})
 
 def toggle_task(request, task_id):
@@ -28,7 +27,6 @@ def delete_task(request, task_id):
 
 import requests
 from requests.exceptions import RequestException
-
 def users(request):
     try:
         response = requests.get('https://jsonplaceholder.typicode.com/users', timeout=5)

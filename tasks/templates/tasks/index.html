@@ -10,7 +10,6 @@
   {{ form.description }}
   <button class="btn-add" type="submit"><i class="fa-solid fa-plus"></i> Ajouter</button>
 </form>
-
 {% for task in tasks %}
   <div class="task">
     <div class="left">
@@ -31,7 +30,6 @@
         </div>
       </div>
     </div>
-
     <div class="actions">
       {% if not task.completed %}
         <a href="{% url 'toggle_task' task.id %}" class="icon-btn done" title="Terminer">
